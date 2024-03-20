@@ -180,31 +180,3 @@ RUN /etc/init.d/apt-cacher-ng start && apt update && apt-get install -y --no-ins
 # RUN echo "deb http://127.0.0.1:9999/debian-security/ 	$(lsb_release -cs)-security 	main" >> /etc/apt/sources.list
 RUN echo "" > /var/log/apt-cacher-ng/apt-cacher.log
 RUN printf '#!/bin/sh\nexit 0' > /usr/sbin/policy-rc.d
-# 
-COPY fai/basefiles /srv/fai/config/basefiles
-COPY fai/class /srv/fai/config/class
-RUN echo "KEYMAP=us" > /srv/fai/config/class/FAIME.var
-RUN echo "TIMEZONE=UTC" >> /srv/fai/config/class/FAIME.var
-RUN echo "locales=\"en_US\"" >> /srv/fai/config/class/FAIME.var
-RUN echo "ROOTPW=''" >> /srv/fai/config/class/FAIME.var
-RUN echo "username=picloud" >> /srv/fai/config/class/FAIME.var
-RUN echo "USERPW=''" >> /srv/fai/config/class/FAIME.var
-RUN echo "release=bookworm" >> /srv/fai/config/class/FAIME.var
-RUN echo "secsuite=bookworm-security" >> /srv/fai/config/class/FAIME.var
-RUN echo "bpo=" >> /srv/fai/config/class/FAIME.var
-RUN echo "postinst=mac.sh" >> /srv/fai/config/class/FAIME.var
-RUN echo "rclocal=1" >> /srv/fai/config/class/FAIME.var
-RUN echo "repo=\"deb [trusted=yes] https://download.docker.com/linux/debian bookworm stable\"" >> /srv/fai/config/class/FAIME.var
-COPY fai/fai-bookworm/ /srv/fai/config/fai-bookworm/
-COPY fai/debconf /srv/fai/config/debconf
-COPY fai/disk_config /srv/fai/config/disk_config
-COPY fai/files/etc/ /srv/fai/config/files/etc/
-COPY fai/files/postinst /srv/fai/config/files/postinst
-COPY fai/grub.cfg.install-only /srv/fai/config/grub.cfg.install-only
-COPY fai/hooks /srv/fai/config/hooks
-COPY fai/package_config /srv/fai/config/package_config
-COPY fai/scripts /srv/fai/config/scripts
-
-CMD	test -n "pa.archive.ubuntu.com" && \
-	/etc/init.d/apt-cacher-ng start && \
-	/bin/bash
