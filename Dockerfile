@@ -1,4 +1,4 @@
-FROM debian:bookworm as fai-mk-configspace
+FROM debian:bookworm AS fai-mk-configspace
 RUN apt-get update && apt-get install -y wget
 RUN wget -O fai-project.gpg https://fai-project.org/download/2BF8D9FE074BCDE4.gpg
 RUN cp fai-project.gpg /etc/apt/trusted.gpg.d/
