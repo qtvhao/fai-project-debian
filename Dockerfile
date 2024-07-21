@@ -24,8 +24,6 @@ RUN apt-get update && \
 		gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client gpg-wks-server gpgconf && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin
 
-RUN /etc/init.d/apt-cacher-ng start && apt update && apt-get install -y --no-install-recommends --download-only docker-ce docker-ce-cli containerd.io docker-buildx-plugin   dracut-core   fai-client fai-setup-storage file iputils-arping && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin && rm -rf /var/lib/apt/lists/* && apt-get clean
-
 RUN apt-get update && \
 	apt-get install --no-install-recommends -y \
 		gpgsm iproute2 isc-dhcp-server keyutils libarchive13 libassuan0 libbinutils \
@@ -81,6 +79,7 @@ RUN rm /etc/apt/sources.list.d/debian.sources && \
 # 
 # http://mirrors.cloud.tencent.com/docker-ce/linux/debian/dists/bookworm/stable/
 # http://mirrors.huaweicloud.com/docker-ce/linux/debian/dists/bookworm/stable/
+RUN /etc/init.d/apt-cacher-ng start && apt update && apt-get install -y --no-install-recommends --download-only docker-ce docker-ce-cli containerd.io docker-buildx-plugin   dracut-core   fai-client fai-setup-storage file iputils-arping && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin && rm -rf /var/lib/apt/lists/* && apt-get clean
 ARG DEBIAN_FRONTEND=noninteractive
 RUN mkdir -p /etc/apt/keyrings/
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --yes --dearmor -o /etc/apt/keyrings/nodesource.gpg
