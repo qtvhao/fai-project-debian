@@ -118,6 +118,7 @@ RUN /etc/init.d/apt-cacher-ng start && apt update && \
  		xz-utils && \
  	apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin
 
+RUN /etc/init.d/apt-cacher-ng start && apt update && apt-get install -y --no-install-recommends --download-only btrfs-progs ca-certificates console-common console-data cryptsetup cryptsetup-bin curl dialog dmeventd dosfstools dracut dump efibootmgr && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin && rm -rf /var/lib/apt/lists/* && apt-get clean
 
 RUN echo "" > /var/log/apt-cacher-ng/apt-cacher.log
 RUN printf '#!/bin/sh\nexit 0' > /usr/sbin/policy-rc.d
