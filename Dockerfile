@@ -80,8 +80,20 @@ RUN rm /etc/apt/sources.list.d/debian.sources && \
 # http://mirrors.cloud.tencent.com/docker-ce/linux/debian/dists/bookworm/stable/
 # http://mirrors.huaweicloud.com/docker-ce/linux/debian/dists/bookworm/stable/
 
+ARG DEBIAN_FRONTEND=noninteractive
+RUN mkdir -p /etc/apt/keyrings/
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --yes --dearmor -o /etc/apt/keyrings/nodesource.gpg
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+RUN wget -O fai-project.gpg https://fai-project.org/download/2BF8D9FE074BCDE4.gpg && \
+	cp fai-project.gpg /etc/apt/trusted.gpg.d/ && \
+	echo "deb http://fai-project.org/download bookworm koeln" > /etc/apt/sources.list.d/fai.list && \
+	echo "" >> /etc/apt/sources.list
+# RUN /etc/init.d/apt-cacher-ng start && apt update && apt-get install -y --no-install-recommends --download-only pxelinux python3 python3-minimal python3-ntp python3.11 python3.11-minimal  rdate readline-common reiserfsprogs rpcbind rsync runit-helper sed  sensible-utils sgml-base shared-mime-info shim-helpers-amd64-signed  shim-signed shim-signed-common shim-unsigned smartmontools ssh startpar  syslinux-common syslinux-efi sysv-rc sysvinit-core sysvinit-utils tar  thin-provisioning-tools ucf udev udns-utils usb.ids usbutils usrmerge  uuid-runtime xauth xdg-user-dirs xfsdump xfsprogs xkb-data xml-core xz-utils  zile zlib1g zstd && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin && rm -rf /var/lib/apt/lists/* && apt-get clean
+# RUN echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs) 				main" > /etc/apt/sources.list
+# RUN echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs)-updates 		main" >> /etc/apt/sources.list
+# RUN echo "deb http://127.0.0.1:9999/debian-security/ 	$(lsb_release -cs)-security 	main" >> /etc/apt/sources.list
 
- RUN /etc/init.d/apt-cacher-ng start && apt update && \
+RUN /etc/init.d/apt-cacher-ng start && apt update && \
  	apt-get install --no-install-recommends -y apt-cacher-ng \
  		apt-transport-https \
  		aptitude \
@@ -106,17 +118,6 @@ RUN rm /etc/apt/sources.list.d/debian.sources && \
  		xz-utils && \
  	apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin
 
-ARG DEBIAN_FRONTEND=noninteractive
-RUN mkdir -p /etc/apt/keyrings/
-RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --yes --dearmor -o /etc/apt/keyrings/nodesource.gpg
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-RUN wget -O fai-project.gpg https://fai-project.org/download/2BF8D9FE074BCDE4.gpg && \
-	cp fai-project.gpg /etc/apt/trusted.gpg.d/ && \
-	echo "deb http://fai-project.org/download bookworm koeln" > /etc/apt/sources.list.d/fai.list && \
-	echo "" >> /etc/apt/sources.list
-# RUN /etc/init.d/apt-cacher-ng start && apt update && apt-get install -y --no-install-recommends --download-only pxelinux python3 python3-minimal python3-ntp python3.11 python3.11-minimal  rdate readline-common reiserfsprogs rpcbind rsync runit-helper sed  sensible-utils sgml-base shared-mime-info shim-helpers-amd64-signed  shim-signed shim-signed-common shim-unsigned smartmontools ssh startpar  syslinux-common syslinux-efi sysv-rc sysvinit-core sysvinit-utils tar  thin-provisioning-tools ucf udev udns-utils usb.ids usbutils usrmerge  uuid-runtime xauth xdg-user-dirs xfsdump xfsprogs xkb-data xml-core xz-utils  zile zlib1g zstd && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin && rm -rf /var/lib/apt/lists/* && apt-get clean
-# RUN echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs) 				main" > /etc/apt/sources.list
-# RUN echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs)-updates 		main" >> /etc/apt/sources.list
-# RUN echo "deb http://127.0.0.1:9999/debian-security/ 	$(lsb_release -cs)-security 	main" >> /etc/apt/sources.list
+
 RUN echo "" > /var/log/apt-cacher-ng/apt-cacher.log
 RUN printf '#!/bin/sh\nexit 0' > /usr/sbin/policy-rc.d
