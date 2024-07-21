@@ -120,5 +120,7 @@ RUN /etc/init.d/apt-cacher-ng start && apt update && \
 
 RUN /etc/init.d/apt-cacher-ng start && apt update && apt-get install -y --no-install-recommends --download-only btrfs-progs ca-certificates console-common console-data cryptsetup cryptsetup-bin curl dialog dmeventd dosfstools dracut dump efibootmgr && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin && rm -rf /var/lib/apt/lists/* && apt-get clean
 
+RUN /etc/init.d/apt-cacher-ng start && apt update && apt-get install -y --no-install-recommends logsave lsb-release dosfstools media-types dnsmasq mtools netbase nfs-common nfs-kernel-server openbsd-inetd openssh-client openssl passwd   binutils binutils-common binutils-x86-64-linux-gnu build-essential bzip2 cpp  && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin && rm -rf /var/lib/apt/lists/* && apt-get clean
+
 RUN echo "" > /var/log/apt-cacher-ng/apt-cacher.log
 RUN printf '#!/bin/sh\nexit 0' > /usr/sbin/policy-rc.d
