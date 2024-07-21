@@ -79,7 +79,33 @@ RUN rm /etc/apt/sources.list.d/debian.sources && \
 # 
 # http://mirrors.cloud.tencent.com/docker-ce/linux/debian/dists/bookworm/stable/
 # http://mirrors.huaweicloud.com/docker-ce/linux/debian/dists/bookworm/stable/
-RUN /etc/init.d/apt-cacher-ng start && apt update && apt-get install -y --no-install-recommends --download-only docker-ce docker-ce-cli containerd.io docker-buildx-plugin   dracut-core   fai-client fai-setup-storage file iputils-arping && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin && rm -rf /var/lib/apt/lists/* && apt-get clean
+
+
+ RUN /etc/init.d/apt-cacher-ng start && apt update && \
+ 	apt-get install --no-install-recommends -y apt-cacher-ng \
+ 		apt-transport-https \
+ 		aptitude \
+ 		binutils \
+ 		bzip2 \
+ 		ca-certificates \
+ 		fai-quickstart \
+ 		isc-dhcp-server nfs-kernel-server openbsd-inetd openssh-server tcpd tftpd-hpa update-inetd \
+ 		debian-archive-keyring \
+ 		gawk \
+ 		grub-pc-bin \
+ 		less \
+ 		liblz4-tool \
+ 		memtest86+ \
+ 		openssh-client \
+ 		patch \
+ 		reprepro \
+ 		tzdata \
+ 		vim \
+ 		wget \
+ 		xorriso \
+ 		xz-utils && \
+ 	apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin
+
 ARG DEBIAN_FRONTEND=noninteractive
 RUN mkdir -p /etc/apt/keyrings/
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --yes --dearmor -o /etc/apt/keyrings/nodesource.gpg
