@@ -66,16 +66,17 @@ RUN apt-get update && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin
 
 # Configuration
-RUN rm /etc/apt/sources.list.d/debian.sources && \
-	echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs) 				main" > /etc/apt/sources.list && \
-	echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs)-updates 		main" >> /etc/apt/sources.list && \
-	echo "deb http://127.0.0.1:9999/debian-security/ 	$(lsb_release -cs)-security 	main" >> /etc/apt/sources.list && \
-	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] http://127.0.0.1:9999/mirrors.cloud.tencent.com/docker-ce/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list && \
-	echo "deb http://fai-project.org/download bookworm koeln" >> /etc/apt/sources.list && \
-	sed -ri 's/^(# )?Port:3142/Port:9999/' /etc/apt-cacher-ng/acng.conf && \
-	sed -ri 's/^Remap-(gentoo|sfnet):/#&/' /etc/apt-cacher-ng/acng.conf && \
-	echo "http://deb.debian.org/debian" > /etc/apt-cacher-ng/backends_debian && \
-	cp /etc/apt/sources.list /etc/fai/apt/
+RUN	echo "deb http://fai-project.org/download bookworm koeln" >> /etc/apt/sources.list
+#RUN rm /etc/apt/sources.list.d/debian.sources && \
+#	echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs) 				main" > /etc/apt/sources.list && \
+#	echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs)-updates 		main" >> /etc/apt/sources.list && \
+#	echo "deb http://127.0.0.1:9999/debian-security/ 	$(lsb_release -cs)-security 	main" >> /etc/apt/sources.list && \
+#	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] http://127.0.0.1:9999/mirrors.cloud.tencent.com/docker-ce/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list && \
+#	echo "deb http://fai-project.org/download bookworm koeln" >> /etc/apt/sources.list && \
+#	sed -ri 's/^(# )?Port:3142/Port:9999/' /etc/apt-cacher-ng/acng.conf && \
+#	sed -ri 's/^Remap-(gentoo|sfnet):/#&/' /etc/apt-cacher-ng/acng.conf && \
+#	echo "http://deb.debian.org/debian" > /etc/apt-cacher-ng/backends_debian && \
+#	cp /etc/apt/sources.list /etc/fai/apt/
 # 
 # http://mirrors.cloud.tencent.com/docker-ce/linux/debian/dists/bookworm/stable/
 # http://mirrors.huaweicloud.com/docker-ce/linux/debian/dists/bookworm/stable/
