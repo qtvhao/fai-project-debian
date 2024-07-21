@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y wget curl && apt-get clean && rm -rf /v
 # # Install packages
 RUN apt-get update && \
 	apt-get install --no-install-recommends -y \
-		binutils binutils-common binutils-x86-64-linux-gnu debconf-utils debootstrap \
+		wait-for-it binutils binutils-common binutils-x86-64-linux-gnu debconf-utils debootstrap \
 		dirmngr dmsetup file gnupg \
 		gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client gpg-wks-server gpgconf && \
 	apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin
