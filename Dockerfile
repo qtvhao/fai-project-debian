@@ -75,7 +75,7 @@ RUN rm /etc/apt/sources.list.d/debian.sources && \
 	sed -ri 's/^(# )?Port:3142/Port:9999/' /etc/apt-cacher-ng/acng.conf && \
 	sed -ri 's/^Remap-(gentoo|sfnet):/#&/' /etc/apt-cacher-ng/acng.conf && \
 	echo "http://deb.debian.org/debian" > /etc/apt-cacher-ng/backends_debian && \
-	sed -i 's%^\(FAI_DEBOOTSTRAP\)=.*%\1="'$(lsb_release -cs)' http://127.0.0.1:9999/debian"%' /etc/fai/nfsroot.conf && \
+	sed -i 's%^\(FAI_DEBOOTSTRAP\)=.*%\1="'$(lsb_release -cs)' http://mirror.netcologne.de/debian"%' /etc/fai/nfsroot.conf && \
 	cp /etc/apt/sources.list /etc/fai/apt/
 # 
 # http://mirrors.cloud.tencent.com/docker-ce/linux/debian/dists/bookworm/stable/
