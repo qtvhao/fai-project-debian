@@ -67,6 +67,15 @@ RUN apt-get update && \
 
 # Configuration
 RUN	echo "deb http://fai-project.org/download bookworm koeln" >> /etc/apt/sources.list
+RUN	echo "deb http://deb.debian.org/debian bookworm main non-free-firmware" >> /etc/apt/sources.list
+RUN	echo "deb-src http://deb.debian.org/debian bookworm main non-free-firmware" >> /etc/apt/sources.list
+
+RUN	echo "deb http://deb.debian.org/debian-security/ bookworm-security main non-free-firmware" >> /etc/apt/sources.list
+RUN	echo "deb-src http://deb.debian.org/debian-security/ bookworm-security main non-free-firmware" >> /etc/apt/sources.list
+
+RUN	echo "deb http://deb.debian.org/debian bookworm-updates main non-free-firmware" >> /etc/apt/sources.list
+RUN	echo "deb-src http://deb.debian.org/debian bookworm-updates main non-free-firmware" >> /etc/apt/sources.list
+
 #RUN rm /etc/apt/sources.list.d/debian.sources && \
 #	echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs) 				main" > /etc/apt/sources.list && \
 #	echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs)-updates 		main" >> /etc/apt/sources.list && \
