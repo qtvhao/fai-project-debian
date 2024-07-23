@@ -77,7 +77,7 @@ RUN	echo "deb http://deb.debian.org/debian bookworm-updates main non-free-firmwa
 RUN	echo "deb-src http://deb.debian.org/debian bookworm-updates main non-free-firmware" >> /etc/apt/sources.list
 RUN	echo "deb http://mirror.netcologne.de/debian bookworm main contrib non-free non-free-firmware" >> /etc/apt/sources.list
 RUN cp /etc/apt/sources.list /etc/fai/apt/
-RUN rm /etc/apt/sources.list.d/fai.list /etc/apt/sources.list.d/debian.sources
+RUN rm /etc/apt/sources.list.d/fai.list
 #RUN rm /etc/apt/sources.list.d/debian.sources && \
 #	echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs) 				main" > /etc/apt/sources.list && \
 #	echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs)-updates 		main" >> /etc/apt/sources.list && \
@@ -98,7 +98,6 @@ RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg -
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 RUN wget -O fai-project.gpg https://fai-project.org/download/2BF8D9FE074BCDE4.gpg && \
 	cp fai-project.gpg /etc/apt/trusted.gpg.d/ && \
-	echo "deb http://fai-project.org/download bookworm koeln" > /etc/apt/sources.list.d/fai.list && \
 	echo "" >> /etc/apt/sources.list
 # RUN /etc/init.d/apt-cacher-ng start && apt update && apt-get install -y --no-install-recommends --download-only pxelinux python3 python3-minimal python3-ntp python3.11 python3.11-minimal  rdate readline-common reiserfsprogs rpcbind rsync runit-helper sed  sensible-utils sgml-base shared-mime-info shim-helpers-amd64-signed  shim-signed shim-signed-common shim-unsigned smartmontools ssh startpar  syslinux-common syslinux-efi sysv-rc sysvinit-core sysvinit-utils tar  thin-provisioning-tools ucf udev udns-utils usb.ids usbutils usrmerge  uuid-runtime xauth xdg-user-dirs xfsdump xfsprogs xkb-data xml-core xz-utils  zile zlib1g zstd && rm -rf /var/cache/apt/archives/* && rm -rf /var/cache/apt/*.bin && rm -rf /var/lib/apt/lists/* && apt-get clean
 # RUN echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs) 				main" > /etc/apt/sources.list
