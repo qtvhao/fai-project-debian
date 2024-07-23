@@ -77,7 +77,6 @@ RUN	echo "deb http://deb.debian.org/debian bookworm-updates main non-free-firmwa
 RUN	echo "deb-src http://deb.debian.org/debian bookworm-updates main non-free-firmware" >> /etc/apt/sources.list
 RUN	echo "deb http://mirror.netcologne.de/debian bookworm main contrib non-free non-free-firmware" >> /etc/apt/sources.list
 RUN cp /etc/apt/sources.list /etc/fai/apt/
-RUN rm /etc/apt/sources.list.d/fai.list
 #RUN rm /etc/apt/sources.list.d/debian.sources && \
 #	echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs) 				main" > /etc/apt/sources.list && \
 #	echo "deb http://127.0.0.1:9999/debian/ 			$(lsb_release -cs)-updates 		main" >> /etc/apt/sources.list && \
